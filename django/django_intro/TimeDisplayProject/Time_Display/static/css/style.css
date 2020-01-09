@@ -1,0 +1,16 @@
+#title{
+            border: 2px black solid;
+            height: 60px;
+            width: 300px;
+            margin: 0 auto;
+            font-size: 22px;
+            padding-left: 40px;
+        }
+        #content{
+            border: 2px black solid;
+            height: 283px;
+            width: 600px;
+            margin: 20px auto;
+            font-size: 91px;
+            padding-left: 40px;
+        }
