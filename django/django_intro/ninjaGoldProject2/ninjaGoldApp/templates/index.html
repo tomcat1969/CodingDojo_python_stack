@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ninja Money</title>
+    <style>
+        form{
+            width: 300px;
+            float:left;
+            margin:20px 10px 10px 10px;
+        }
+        .text_area{
+            overflow: scroll;
+            width: 500px;
+            height: 500px;
+            
+        }
+    </style>
+</head>
+<body>
+Your Gold : <input type="text" name="gold">
+<div class="locations">
+    <form action="/process_money" method="POST">
+        {% csrf_token %}
+         <fieldset>
+    <legend>Farm</legend>
+      <p>(earns 10 - 20 golds)</p>
+      <input type="hidden" name="location" value="farm"/>
+      <button>Find Gold</button>
+  </fieldset>
+     </form>
+
+    <form action="/process_money" method="post">
+    {% csrf_token %}
+      <fieldset>
+        <legend>Cave</legend>
+          <p>(earns 10 - 20 golds)</p>
+          <input type="hidden" name="location" value="vave"/>
+          <input type="submit" value="FindGold">
+      </fieldset>
+    </form>
+    <form action="/process_money" method="post">
+    {% csrf_token %}
+      <fieldset>
+        <legend>House</legend>
+          <p>(earns 10 - 20 golds)</p>
+          <input type="hidden" name="location" value="house"/>
+          <input type="submit" value="FindGold">
+      </fieldset>
+    </form>
+    <form action="/process_money" method="post">
+    {% csrf_token %}
+      <fieldset>
+        <legend>Casino</legend>
+          <p>(earns/takes 0 - 50 golds)</p>
+          <input type="hidden" name="location" value="casino"/>
+          <input type="submit" value="FindGold">
+      </fieldset>
+    </form>
+
+</div>
+<br/>
+
+<div class="text_area">
+                <ul>
+                    {% for i in logs %}
+                       <li> {{i}}</li>
+                    {% endfor  %}
+                </ul>
+</div>
+</body>
+</html>
