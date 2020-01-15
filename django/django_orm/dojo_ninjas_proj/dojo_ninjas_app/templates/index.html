@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dojo && Ninja</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <form action="/addDojo" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>add dojo</legend>
+            <label for="name">Name</label> <input type="text" name="name"/>
+            <label for="city">City</label> <input type="text" name="city"/>
+            <label for="state">State</label> <input type="text" name="state"/>
+            <button>Add</button>
+        </fieldset>
+    </form>
+
+     <form action="/addNinja" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>add a Ninja</legend>
+            <label>First Name</label> <input type="text" name="first_name"/>
+            <label>Last Name</label> <input type="text" name="last_name"/>
+            <label>Dojo</label>
+            <select name="dojo">
+                {% for dojo in all_the_dojo %}
+                    <option>{{ dojo.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button>Add</button>
+        </fieldset>
+    </form>
+    <div class="infolist">
+        <h1>Ninjas List</h1>
+        <form action="/delNinja" method="post">
+            {% csrf_token %}
+            <ul>
+              {% for dojo in all_the_dojo %}
+                <li>{{dojo.name}} ({{ dojo.ninjas.count }})
+                  <ul>
+                    {% for ninja in dojo.ninjas.all %}
+                      <li><em>{{ ninja.id }}{{ninja.first_name}} {{ ninja.last_name }}</em>
+                          <form action="/delNinja" method="post">
+                              {% csrf_token %}
+                              <input type="hidden" name="ninja_id" value="{{ ninja.id }}"/>
+                              <button>Delete</button>
+                          </form>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+        </form>
+
+
+    </div>
+</body>
+</html>
