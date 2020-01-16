@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books & Authors</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+            }
+        .wraper{
+            margin: 0 auto;
+             border: 1px gray solid;
+            width: 900px;
+
+
+        }
+        .addbookForm{
+            width: 420px;
+            height: 440px;
+            border: 1px lightgray solid;
+            display: inline-block;
+            overflow: hidden;
+            padding: 40px 20px 20px 20px;
+        }
+        textarea{
+            vertical-align: top;
+            margin-top: 20px;
+        }
+        .addbookForm button{
+            width: 80px;
+            height: 30px;
+            margin-left: 120px;
+        }
+
+
+        .right{
+            width: 380px;
+            height: 500px;
+            border: 1px lightgray solid;
+            display: inline-block;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="wraper">
+
+        <form action="/" method="post" class="addbookForm">
+            {% csrf_token %}
+             <h1>Add a Book</h1> <br><br>
+                Title:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="title"/><br>
+                <br><br>
+                Description:<textarea rows="4" cols="50"></textarea> <br><br>
+                <button>Add</button>
+        </form>
+
+
+        <div class="right">
+             <table>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+        {% for item in all_the_books %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td><a href="books/{{ item.id }}" >view</a></td>
+            </tr>
+        {% endfor %}
+
+
+    </table>
+
+        </div>
+    </div>
+
+</body>
+</html>
