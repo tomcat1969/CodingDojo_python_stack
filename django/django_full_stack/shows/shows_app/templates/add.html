@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <style>
+        form{
+             margin: 0 auto;
+             border: 1px gray solid;
+            width: 400px;
+        }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+</head>
+<body>
+    <form action="/shows/addnew" method="post">
+         {% csrf_token %}
+         <h1>Add a New Show</h1>
+         Title <br>
+         <input type="text" name="title"/><br>
+         Network<br>
+         <input type="text" name="network"/><br>
+         Release Date<br>
+         <input type="text" id="datepicker" name="release_date"><br>
+         Description<br>
+        <textarea rows="4" cols="50" name="desc"></textarea><br>
+        <button>Create</button>
+    </form>
+
+</body>
+</html>

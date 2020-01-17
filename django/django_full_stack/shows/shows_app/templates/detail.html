@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReadONe</title>
+</head>
+<body>
+ <h1>TV Show {{ myShow.id }}</h1>     <a href="/">Back</a>|
+ <p>Title : {{ myShow.title }}</p>
+<p>Network : {{ myShow.network}}</p>
+<p>Release Date: : {{ myShow.release_date }}</p>
+<p>Description : {{ myShow.desc }}</p>
+<p>Last Updated: {{ myShow.updated_at }}</p>
+
+<a href="/shows/{{myShow.id}}/edit">Edit</a>
+<a href="/shows/{{myShow.id}}/delete">Delete</a>
+
+
+
+</body>
+</html>
