@@ -15,10 +15,10 @@
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+             $( function() {
+            $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
+          } );
+       </script>
 </head>
 <body>
     <form action="/shows/update" method="post">
@@ -29,9 +29,9 @@
          Network<br>
          <input type="text" name="network" value="{{ myShow.network }}"/><br>
          Release Date<br>
-         <input type="text" id="datepicker" name="release_date" value="{{ myShow.release_date }}"><br>
+         <input type="text" id="datepicker" name="release_date" value="{{release_date}}"><br>
          Description<br>
-        <textarea rows="4" cols="50" name="desc" value="{{ myShow.desc }}"></textarea><br>
+        <textarea rows="4" cols="50" name="desc">{{ myShow.desc }}</textarea><br>
         <input type="hidden" name="show_id" value="{{ myShow.id }}">
         <button>update</button>
     </form>
