@@ -13,7 +13,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-    <form action="/regist" method="post">
+    <form action="/register/regist" method="post">
          {% csrf_token %}
         <fieldset>
             <legend>Registration</legend>
@@ -27,7 +27,7 @@
         </fieldset>
     </form>
 
-    <form action="/login" method="post">
+    <form action="/register/login" method="post">
          {% csrf_token %}
         <fieldset>
             <legend>login</legend>
@@ -36,6 +36,7 @@
             <p><button>Log In</button></p>
         </fieldset>
     </form>
+    <p>for test use : a@a.com    1111</p>
 
 </body>
 </html>

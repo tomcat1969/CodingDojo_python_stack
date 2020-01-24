@@ -4,7 +4,7 @@ import bcrypt
 from django.contrib import messages
 from datetime import datetime
 
-def index(request):
+def LoginApp_index(request):
 
 
     if 'id' in request.session:
@@ -12,14 +12,14 @@ def index(request):
     else:
         print("session id is not here")
 
-    return render(request,"index.html")
+    return render(request,"LoginApp_index.html")
 
 def regist(request):
     errors = Users.objects.basic_validator(request.POST)
     if len(errors) > 0:
         for k, v in errors.items():
             messages.error(request, v)
-        return redirect("/")
+        return redirect("/register/")
 
 
 
@@ -40,12 +40,13 @@ def regist(request):
             )
     print("add a user in datebase")
     request.session['id'] = user.id
-    return redirect('/success')
+    print("session id = ",request.session['id'])
+    return redirect('/register/success')
 
 def success(request):
     if 'id' not in request.session:
         print("you have to login")
-        return redirect('/')
+        return redirect('/register/')
     logged_user = Users.objects.get(id=request.session['id'])
     context={
         "logged_user":logged_user
@@ -54,13 +55,16 @@ def success(request):
 
 def logout(request):
     request.session.clear()
-    return redirect('/')
+    return redirect('/register/')
 
 def login(request):
+    if 'id' not in request:
+        request.session['id'] = None
     user = Users.objects.filter(email=request.POST['email'])
+
     if user:
         logged_user = user[0]
         if bcrypt.checkpw(request.POST['password'].encode(),logged_user.password.encode()):
             request.session['id'] = logged_user.id
-            return redirect('/success')
-    return redirect('/')
+            return redirect('/register/success')
+    return redirect('register/')

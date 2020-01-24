@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Wall</title>
+    <style>
+        .wraper{
+            width: 1100px;
+            height: 1600px;
+            margin: 0 auto;
+            overflow: scroll;
+            border: 1px solid lightgray;
+        }
+        #postMessage{
+            width: 900px;
+            height: 200px;
+            margin: 20px auto;
+        }
+        button{
+            width: 120px;
+            height: 26px;
+        }
+        .message_p{
+            font-size: larger;
+        }
+        .comment_p{
+            font-size: medium;
+            color: gray;
+        }
+        h3{
+            color: gray;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wraper">
+        <h1>CodingDojo</h1>
+        <p>Welcome {{the_user.first_name}}     <a href="/register/logout">log off</a></p>
+        <form action="/wall/postMessage" method="post" id="postMessage">
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Post a message
+                </legend>
+                <textarea rows="10" cols="180" name="message_textarea">
+                </textarea>
+                <button>Post a message</button>
+            </fieldset>
+        </form>
+
+        <!-- above is post message part-->
+
+        <ul>
+            {% for message in messages%}
+                <li>
+                    <h2>{{ message.user.first_name }}  post on  {{message.created_at}}</h2>
+                    <p class="message_p">
+                        {{message.message}}
+                    </p>
+                    {% if message.user.id == request.session.id %}
+                        <form action="/wall/deleteMessage" method="post">
+                        {% csrf_token %}
+                             <input type="hidden" name="message_id_to_delete" value="{{ message.id }}"/>
+                             <button>delete this message</button>
+                        </form>
+                    {% endif %}
+                    <ul>
+                        {% for comment in message.comments.all %}
+                            <li>
+                                <h3>{{comment.user.first_name}} post comment on {{ comment.created_at }}</h3>
+                                <p class="comment_p">
+                                    {{comment.comment}}
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form action="/wall/postComment" method="post" id="postComment">
+                        {% csrf_token %}
+                        <p><textarea rows="8" cols="150" name="comment_textarea"></textarea></p>
+                        <input type="hidden" name="message_id" value="{{ message.id }}"/>
+                        <p><button>Post a comment</button></p>
+
+                    </form>
+                </li>
+            {% endfor %}
+
+        </ul>
+
+
+
+    </div>
+
+</body>
+</html>
