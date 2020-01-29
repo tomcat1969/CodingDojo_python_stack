@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax demo</title>
+</head>
+<body>
+
+    <h1>My Posts</h1>
+    <ul>
+        {% for message in all_the_messages %}
+            <li>{{ message.message }}</li>
+        {% endfor %}
+    </ul>
+
+    <form action = '/addPost' method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Add a note:</legend>
+            <p><textarea rows = 5 cols=80 name="message"></textarea></p>
+            <button>post it!</button>
+        </fieldset>
+    </form>
+</body>
+</html>
