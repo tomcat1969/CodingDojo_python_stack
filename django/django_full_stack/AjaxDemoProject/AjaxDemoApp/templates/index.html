@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ajax demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -22,4 +23,23 @@
         </fieldset>
     </form>
 </body>
+
+ <script>
+
+    $('form').submit(function(e){
+
+      e.preventDefault();
+      console.log("Form submitted but no HTTP request sent to server!");
+
+      $.ajax({
+        url: '/addPost',
+        method: 'post',
+        data: $(this).serialize(),
+        success: function(serverResponse){
+                    console.log("Received this from server: ", serverResponse)
+                    $("ul").html(serverResponse);
+                }
+      })
+    });
+  </script>
 </html>

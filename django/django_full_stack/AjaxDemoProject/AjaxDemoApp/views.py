@@ -2,8 +2,10 @@ from django.shortcuts import render,redirect
 from .models import *
 
 def index(request):
+
     context = {
         "all_the_messages": Messages.objects.all()
+
     }
     return render(request,"index.html",context)
 
@@ -11,4 +13,10 @@ def index(request):
 def addPost(request):
     Messages.objects.create(message=request.POST['message'])
     print('add a message in date base')
-    return redirect('/')
+    return redirect('/ajaxmessages')
+
+def ajaxPost(request):
+    context = {
+        "all_the_messages": Messages.objects.all()
+    }
+    return render(request, "messages.html", context)
