@@ -1,0 +1,7 @@
+ {% for note in all_the_notes %}
+            <li>
+                  <p>{{ note.title }}  </p>   <a href="" class="deleteNote" data_note_id = "{{ note.id }}">Delete</a>
+                  <p><textarea rows=10 cols=50 name="content">{{note.content}}</textarea></p>
+                  <br>
+            </li>
+ {% endfor %}

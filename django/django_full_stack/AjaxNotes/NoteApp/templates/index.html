@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Notes</h1>
+    <ul>
+        {% for note in all_the_notes %}
+            <li>
+                <p>{{ note.title }}  </p>   <a href="" class="deleteNote" data_note_id = "{{ note.id }}">Delete</a>
+                <p><textarea rows=10 cols=50 name="content">{{note.content}}</textarea></p>
+                <br>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form action="#" method="post" class="newNote">
+        {% csrf_token %}
+        <fieldset>
+            <p><textarea rows=10 cols=50 name="content">Enter description here</textarea></p>
+            <br>
+            <p><input type="text" name="title" value="Insert note title here"/> </p>
+            <p><button>Add Node</button></p>
+        </fieldset>
+
+    </form>
+
+</body>
+<script>
+    $('.newNote').submit(function (e) {
+        e.preventDefault()
+
+        $.ajax({
+            url:'/addNote',
+            method:'post',
+            data:$(this).serialize(),
+            success:function (serverResponse) {
+                        $('ul').html(serverResponse)
+            }
+        })
+
+    })
+
+    $(document).on('click', '.deleteNote', function (e) {
+        alert('/delete/'+ $(this).attr('data_note_id'))
+
+        $.ajax({
+            url:'/delete/'+ $(this).attr('data_note_id'),
+            method:'get',
+            success:function (serverResponse) {
+                        $('ul').html(serverResponse)
+            }
+        })
+    })
+</script>
+</html>
